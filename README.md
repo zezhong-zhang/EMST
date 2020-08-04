@@ -9,7 +9,7 @@ StatSTEM: https://github.com/quantitativeTEM/StatSTEM
 
 ## Development Plan
 
-1. Basic electron scattering and introduction to MULTEM [x]
+1. - [x] Basic electron scattering and introduction to MULTEM
 (Oxford, 5 Augest 2020)
     - Electron wave
     - Electron scattering using Schrondinger equation
