@@ -1,6 +1,6 @@
 # Electron Microscopy Simulation Tutorial (EMST)
 
-This is a repository that holds a series of tutorials for theoritical and practical aspect of electron microscopy simulations, aiming to support young researchers in electron microscopy. 
+This is a repository that holds a series of tutorials for theoretical and practical aspects of electron microscopy simulation, aiming to support young researchers in electron microscopy. 
 ## Software 
 
 MULTEM: https://github.com/Ivanlh20/MULTEM
@@ -19,7 +19,7 @@ StatSTEM: https://github.com/quantitativeTEM/StatSTEM
 
 2. Quantitative scanning transmission electron microscopy
     - Experiment
-        - Characetrise the convergence angle and collection angle 
+        - Characterise the convergence angle of aperature and collection angles of detector
         - Characterise your detector response
     - Quntification 
         - Peak refinement 
