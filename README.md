@@ -19,17 +19,7 @@ StatSTEM: https://github.com/quantitativeTEM/StatSTEM
 
 2. Quantitative scanning transmission electron microscopy
     - Experiment
-        - Characterise the convergence angle of aperature and collection angles of detector
-        - Characterise your detector response
     - Quntification 
-        - Peak refinement 
-        - Scattering cross-section 
-            - Voronoi cell intergration
-            - Gaussian integration
-        - Atom counting
-            - Statistical method
-            - Simulation-based scattering cross-section library 
-        - Strain mapping
     - Hand-on StatSTEM
 
 3. Kinematic and dynamic electron scattering
