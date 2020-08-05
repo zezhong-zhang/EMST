@@ -59,7 +59,7 @@ input_multem.temporal_spatial_incoh = 1;         % 1: Temporal and Spatial, 2: T
 
 %%%%%%%%%%%%%%%%%%%%%%%% condenser lens %%%%%%%%%%%%%%%%%%%%%%%%
 input_multem.cond_lens_m = 0;                  % Vortex momentum
-input_multem.cond_lens_c_10 = 14.0312;            % Defocus (�)
+input_multem.cond_lens_c_10 = -5.32;            % Defocus (�)
 input_multem.cond_lens_c_30 = 1e-03;            % Third order spherical aberration (mm)
 input_multem.cond_lens_c_50 = 0.00;             % Fifth order spherical aberration (mm)
 input_multem.cond_lens_c_12 = 0.0;             % Twofold astigmatism (�)
