@@ -48,13 +48,8 @@ na = 8; nb = 8; nc = 5; ncu = 2; rms3d = 0.085;
 input_multem.thick_type = 2;                     % eTT_Whole_Spec = 1, eTT_Through_Thick = 2, eTT_Through_Slices = 3
 input_multem.thick = c/2:c:1000;                   % Array of thickes (�)
 
-%%%%%%%%%%%%%%%%%%%%%% x-y sampling %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-input_multem.nx = 512;
-input_multem.ny = 512;
-input_multem.bwl = 0;                            % Band-width limit, 1: true, 0:false
-
 %%%%%%%%%%%%%%%%%%%% Microscope parameters %%%%%%%%%%%%%%%%%%%%%%%%%%
-input_multem.E_0 = 300;                          % Acceleration Voltage (keV)
+input_multem.E_0 = __;                          % Acceleration Voltage (keV)
 input_multem.theta = 0.0;                        % Till ilumination (�)
 input_multem.phi = 0.0;                          % Till ilumination (�)
 
@@ -72,7 +67,7 @@ input_multem.cond_lens_phi_12 = 0.0;             % Azimuthal angle of the twofol
 input_multem.cond_lens_c_23 = 0.0;             % Threefold astigmatism (�)
 input_multem.cond_lens_phi_23 = 0.0;             % Azimuthal angle of the threefold astigmatism (�)
 input_multem.cond_lens_inner_aper_ang = 0.0;   % Inner aperture (mrad)
-input_multem.cond_lens_outer_aper_ang = 21.0;  % Outer aperture (mrad)
+input_multem.cond_lens_outer_aper_ang = __;  % Outer aperture (mrad)
 
 %%%%%%%%% defocus spread function %%%%%%%%%%%%
 dsf_sigma = il_iehwgd_2_sigma(32); % from defocus spread to standard deviation
@@ -88,21 +83,35 @@ input_multem.cond_lens_si_rad_npts = 4;         % # of integration points. It wi
 input_multem.cond_lens_zero_defocus_type = 1;   % eZDT_First = 1, eZDT_User_Define = 4
 input_multem.cond_lens_zero_defocus_plane = 0;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%STEM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%STEM probe sampling %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+lambda = wave_length(__); % calculate the wavelength, input KeV
+resolution = lambda/4/input_multem.cond_lens_outer_aper_ang*1000; % the diffaraction-limited resolution
+step = ceil(a/resolution); % number of step for probe 
+
 input_multem.scanning_type = 2; % eST_Line = 1, eST_Area = 2
 input_multem.scanning_periodic = 1;     % 1: true, 0:false (periodic boundary conditions)
-input_multem.scanning_ns = 20;
+input_multem.scanning_ns = step;
+%scanning area
 input_multem.scanning_x0 = 3*a;
 input_multem.scanning_y0 = 3*b;
 input_multem.scanning_xe = 4*a;
 input_multem.scanning_ye = 4*b;
 
+%%%%%%%%%%%%%%%%%%%%%% x-y sampling %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+theta_max = __; % outer collection angle of your haadf
+dx = 1/3/theta_max*lambda;
+
+input_multem.nx = pow2(ceil(log2(input_multem.spec_lx/dx)));
+input_multem.ny = pow2(ceil(log2(input_multem.spec_ly/dx)));
+input_multem.bwl = 0;                            % Band-width limit, 1: true, 0:false
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Detector %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 input_multem.detector.type = 1;  % eDT_Circular = 1, eDT_Radial = 2, eDT_Matrix = 3
-input_multem.detector.cir(1).inner_ang = 0;  % Inner angle(mrad)
-input_multem.detector.cir(1).outer_ang = 20; % Outer angle(mrad)
-input_multem.detector.cir(2).inner_ang = 80;  % Inner angle(mrad)
-input_multem.detector.cir(2).outer_ang = 160; % Outer angle(mrad)
+input_multem.detector.cir(1).inner_ang = __;  % Inner angle(mrad)
+input_multem.detector.cir(1).outer_ang = __; % Outer angle(mrad)
+input_multem.detector.cir(2).inner_ang = __;  % Inner angle(mrad)
+input_multem.detector.cir(2).outer_ang = __; % Outer angle(mrad)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% run multem %%%%%%%%%%%%%%%%%%%%%%%%%%
 clear il_multem;
@@ -115,7 +124,10 @@ for i=1:length(output_multislice.data)
 	ndet = length(input_multem.detector.cir);
     for j=1:ndet
         subplot(1, ndet, j);
-        imagesc(output_multislice.data(i).image_tot(j).image);
+        image = output_multislice.data(i).image_tot(j).image;
+        image = kron(ones([3 3]),image);
+        image = fourier_interpolate(image, [512 512]);
+        imagesc(image);
         title(strcat('Thk = ', num2str(i), ', det = ', num2str(output_multislice.thick(j))));
         axis image;
         colormap gray;
