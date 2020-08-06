@@ -37,21 +37,14 @@ input_multem.pn_nconf = 10;                      % true: specific phonon configu
 input_multem.pn_dim = 110;                       % phonon dimensions (xyz)
 input_multem.pn_seed = 300183;                   % Random seed(frozen phonon)
 
-%%%%%%%%%%%%%%%%%%%%%% Specimen information %%%%%%%%%%%%%%%%%%%%%%%
-n = 8; a=1.42569; rms3d = 0.085;
-
-[input_multem.spec_atoms, input_multem.spec_lx...
-, input_multem.spec_ly, input_multem.spec_lz] = graphene(n, a, rms3d);
-
-% ilm_show_crystal(1, input_multem.spec_atoms)
 
 % %%%%%%%%%%%%%%%%%%%%%%% Specimen information %%%%%%%%%%%%%%%%%%%%%%%
-% na = 8; nb = 8; nc = 5; ncu = 2; rms3d = 0.085;
-% 
-% [input_multem.spec_atoms, input_multem.spec_lx...
-% , input_multem.spec_ly, input_multem.spec_lz...
-% , a, b, c, input_multem.spec_dz] = SrTiO3001_xtl(na, nb, nc, ncu, rms3d);
-% ilm_show_crystal(1, input_multem.spec_atoms)
+na = 8; nb = 8; nc = 10; ncu = 2; rms3d = 0.085;
+
+[input_multem.spec_atoms, input_multem.spec_lx...
+, input_multem.spec_ly, input_multem.spec_lz...
+, a, b, c, input_multem.spec_dz] = SrTiO3001_xtl(na, nb, nc, ncu, rms3d);
+ilm_show_crystal(1, input_multem.spec_atoms)
 
 %%%%%%%%%%%%%%%%%%%%%% Specimen thickness %%%%%%%%%%%%%%%%%%%%%%%%%%
 input_multem.thick_type = 1;                     % eTT_Whole_Spec = 1, eTT_Through_Thick = 2, eTT_Through_Slices = 3
@@ -104,15 +97,10 @@ input_multem.cond_lens_zero_defocus_plane = 0;
 
 clear il_multem;
 
-nx_start=3*3*a;
-nx_end=4*3*a;
-ny_start=3*sqrt(3)*a;
-ny_end=4*sqrt(3)*a;
-
-% nx_start=3*a;
-% nx_end=4*a;
-% ny_start=3*b;
-% ny_end=4*b;
+nx_start=3*a;
+nx_end=4*a;
+ny_start=3*b;
+ny_end=4*b;
 
 lambda = wave_length(input_multem.E_0); 
 min_sampling=lambda/4/input_multem.cond_lens_outer_aper_ang*1000;

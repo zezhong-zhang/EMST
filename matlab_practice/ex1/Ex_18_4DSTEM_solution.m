@@ -96,7 +96,7 @@ input_multem.thick_type = 1;                     % eTT_Whole_Spec = 1, eTT_Throu
 input_multem.thick = 0;   % Array of thickes (�)
 
 %%%%%%%%%%%%%%%%%%%%%% Potential sampling %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-theta_max = 21/10*32/1000;
+theta_max = 21/20*32/1000; % 21 mrad, 20 pixels, 32 max pixels, 1000 from mrad to rad
 lambda = wave_length(200);
 pixel_size = 1/3*lambda/theta_max;
 
@@ -140,7 +140,7 @@ for j = 1: length(ny) % because the scanning direction and array x-y are swtiche
         imagesc(cbed)
         pause(0.5)
         filename=strcat('output/','graphene/',num2str(i),'_',num2str(j),'.tif');
-%         imwrite(cbed,filename)
+        imwrite(cbed,filename)
     end
 end
 
