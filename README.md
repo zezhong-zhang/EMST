@@ -10,16 +10,16 @@ StatSTEM: https://github.com/quantitativeTEM/StatSTEM
 ## Development Plan
 
 1. - [x] Basic electron scattering and introduction to MULTEM
-(Oxford, 5 Augest 2020)
+(Oxford, 5 August 2020)
     - Electron wave
-    - Electron scattering using Schrondinger equation
+    - Electron scattering using Schrodinger equation
     - Multislice representation
     - Sampling
     - Hand-on MULTEM
 
 2. Quantitative scanning transmission electron microscopy
     - Experiment
-    - Quntification 
+    - Quantification 
     - Hand-on StatSTEM
 
 3. Kinematic and dynamic electron scattering
